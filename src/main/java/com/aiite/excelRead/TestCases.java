@@ -7,6 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
@@ -15,6 +16,7 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
+import com.aventstack.extentreports.reporter.configuration.Theme;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
@@ -29,6 +31,9 @@ public class TestCases {
 	public void browserSetUp() {
 		reports = new ExtentReports();
 		htmlReporter= new ExtentHtmlReporter("target/Reports.html");
+		htmlReporter.config().setDocumentTitle("Automation Reports");
+		htmlReporter.config().setReportName("Facebook Reports");
+		htmlReporter.config().setTheme(Theme.STANDARD);
 		reports.attachReporter(htmlReporter);
 		
 	
@@ -57,14 +62,17 @@ public class TestCases {
 		 */
 	}
 	@Test
-	public void testCase2() throws IOException {
+	public void testCase2(ITestResult result) throws IOException {
 		
 		//driver.get("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
+		
 		reports.createTest("This is second testCase");
 		Assert.assertTrue(false);
 		testCase.log(Status.FAIL, "This is failed Case");
-		Screenshot.takeScreenshots();
-		testCase.addScreenCaptureFromPath("target\\screenshot.png");
+		if(result.getStatus()==ITestResult.FAILURE) {
+			Screenshot.takeScreenshots();
+			testCase.addScreenCaptureFromPath("target\\screenshot.png");
+		}
 		
 	}
 	
