@@ -5,7 +5,8 @@
     <classes>
       <class name="com.aiite.excelRead.TestCases">
         <methods>
-          <include name="testCase" invocation-numbers="0 1 2 3 4 5"/>
+          <include name="browserClose"/>
+          <include name="testCase2"/>
           <include name="browserSetUp"/>
         </methods>
       </class> <!-- com.aiite.excelRead.TestCases -->
